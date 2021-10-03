@@ -1,20 +1,27 @@
-@font-face {
-	font-family: 'roboto';
-	src: url('/assets/fonts/roboto/Roboto-Regular.ttf');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+
+:root {
+	// COLORS
+	--primary-color: #fbbd61;
+	--primary-dark-color: #ec7532;
+	--second-color: #ffffff;
+	--third-color: #4a4a4a;
+	--danger: red;
+
+	// FONT-SIZE
+	--xxl-text: 3rem;
+	--xl-text: 2.5rem;
+	--large-text: 2rem;
+	--medium-text: 1.5rem;
+	--small-text: 1rem;
+	--xs-text: 0.875rem;
 }
 
-@font-face {
-	font-family: 'roboto';
-	src: url('/assets/fonts/roboto/Roboto-Medium.ttf');
-	font-weight: 600;
-}
-
-@font-face {
-	font-family: 'roboto';
-	src: url('/assets/fonts/roboto/Roboto-Bold.ttf');
-	font-weight: 700;
+* {
+	box-sizing: border-box;
 }
 
 html {
-	font-family: 'roboto', 'sans-serif';
+	font-family: 'Roboto', sans-serif;
+	font-size: 16px;
 }

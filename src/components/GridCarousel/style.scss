@@ -1,0 +1,31 @@
+.grid-carousel {
+	&__wrap {
+		margin-left: -8px;
+		margin-right: -8px;
+	}
+	.slick-prev {
+		left: -50px;
+	}
+	.slick-next {
+		right: -50px;
+	}
+	.slick-arrow {
+		display: block;
+		width: auto;
+		height: auto;
+		color: var(--primary-dark-color);
+
+		svg {
+			font-size: 3rem;
+		}
+
+		&::before {
+			display: none;
+		}
+	}
+}
+
+.custom-slide {
+	margin-bottom: 32px;
+	padding: 0 8px;
+}

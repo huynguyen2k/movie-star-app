@@ -1,0 +1,47 @@
+.hero-carousel {
+	.slick-dots {
+		bottom: 32px;
+	}
+
+	.slick-active {
+		.hero-slide__info {
+			.type {
+				transform: scale(1);
+				opacity: 1;
+				transition: 0.75s ease delay 0.5s;
+				transition-property: opacity, transform;
+			}
+			.name {
+				transform: scale(1);
+				opacity: 1;
+				transition: 0.75s ease delay 0.5s;
+				transition-property: opacity, transform;
+			}
+			.description {
+				transform: scale(1);
+				opacity: 1;
+				transition: 0.75s ease delay 0.5s;
+				transition-property: opacity, transform;
+			}
+			.play-trailer-btn {
+				transform: translate(0, 0);
+				opacity: 1;
+				transition: 0.75s ease delay 0.5s;
+				transition-property: opacity, transform;
+			}
+		}
+	}
+
+	.slick-active .custom-dot {
+		background-color: var(--primary-color);
+		opacity: 1;
+	}
+
+	.custom-dot {
+		width: 14px;
+		height: 14px;
+		border-radius: 50%;
+		background-color: var(--second-color);
+		opacity: 0.8;
+	}
+}

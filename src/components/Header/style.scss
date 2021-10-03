@@ -1,0 +1,117 @@
+.header {
+	padding: 8px 0;
+	background-color: transparent;
+
+	&__logo-link {
+		svg {
+			display: inline-block;
+			width: 180px;
+			height: auto;
+		}
+	}
+
+	&__wrap {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+	}
+
+	&__nav-link {
+		position: relative;
+		display: inline-block;
+		margin-right: 24px;
+		padding: 12px;
+
+		color: var(--second-color);
+		font-size: var(--small-text);
+		text-decoration: none;
+
+		&:last-child {
+			margin-right: 0;
+		}
+		&:hover,
+		&.active {
+			color: var(--primary-color);
+			&::after {
+				width: 100%;
+			}
+		}
+
+		&::after {
+			content: '';
+			position: absolute;
+			bottom: 0;
+			left: 0;
+
+			width: 0;
+			height: 3px;
+			border-radius: 3px;
+			background-image: linear-gradient(
+				to right,
+				var(--primary-color),
+				var(--primary-dark-color)
+			);
+			transition: 0.25s ease;
+		}
+	}
+
+	&__account {
+		position: relative;
+		padding: 8px;
+		cursor: pointer;
+
+		&-wrap {
+			display: flex;
+			align-items: center;
+			color: var(--second-color);
+
+			.account-icon {
+				svg {
+					font-size: var(--large-text);
+				}
+			}
+			.account-text {
+				margin-left: 6px;
+				font-size: var(--small-text);
+			}
+		}
+
+		&:hover {
+			.header__account-wrap {
+				color: var(--primary-color);
+			}
+			.header__account-options {
+				opacity: 1;
+				visibility: visible;
+			}
+		}
+
+		&-options {
+			position: absolute;
+			top: 100%;
+			right: 0;
+
+			padding: 8px 0;
+			width: 150px;
+			border-radius: 4px;
+			background-color: #333;
+
+			transition: all 0.3s ease;
+			opacity: 0;
+			visibility: hidden;
+
+			.option-link {
+				display: block;
+				padding: 10px 12px;
+
+				color: var(--second-color);
+				text-decoration: none;
+				font-size: var(--small-text);
+
+				&:hover {
+					background-color: var(--primary-dark-color);
+				}
+			}
+		}
+	}
+}

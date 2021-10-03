@@ -1,0 +1,138 @@
+.movie-card {
+	&__image {
+		position: relative;
+		width: 100%;
+		height: 320px;
+		border-radius: 6px;
+
+		overflow: hidden;
+		cursor: pointer;
+		user-select: none;
+
+		&::before {
+			content: '';
+			position: absolute;
+			top: 0;
+			left: -120px;
+			z-index: 15;
+
+			width: 0;
+			height: 100%;
+
+			transition: width 0.4s ease;
+			transform: skewX(30deg);
+
+			background: linear-gradient(
+				to bottom,
+				var(--primary-color),
+				var(--primary-dark-color)
+			);
+			opacity: 0.95;
+		}
+		&:hover {
+			&::before {
+				width: 200%;
+			}
+			.movie-card__view-trailer {
+				opacity: 1;
+			}
+		}
+	}
+
+	&__rating {
+		position: absolute;
+		top: 12px;
+		right: 12px;
+		z-index: 25;
+
+		border-radius: 4px;
+		padding: 8px;
+		background-color: rgba(12, 27, 54, 0.8);
+
+		.score {
+			display: block;
+			color: var(--second-color);
+			text-align: center;
+			font-size: 1.2rem;
+		}
+		.stars {
+			svg {
+				color: var(--primary-color);
+				width: 12px;
+				height: 12px;
+			}
+		}
+	}
+
+	&__view-trailer {
+		position: absolute;
+		top: 0;
+		left: 0;
+		z-index: 20;
+
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+
+		width: 100%;
+		height: 100%;
+
+		color: var(--second-color);
+		opacity: 0;
+		transition: opacity 0.4s ease;
+
+		.text {
+			margin-top: 16px;
+			font-size: 1.1rem;
+		}
+		.view-trailer-icon {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+
+			width: 65px;
+			height: 65px;
+			border: 2px solid var(--second-color);
+			border-radius: 50%;
+
+			svg {
+				font-size: 2rem;
+				color: var(--second-color);
+			}
+		}
+	}
+
+	&__info {
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		text-align: center;
+
+		.name {
+			display: -webkit-box;
+			-webkit-box-orient: vertical;
+			-webkit-line-clamp: 2;
+			height: 2.4em;
+			margin-top: 8px;
+
+			line-height: 1.2;
+			font-size: calc(var(--small-text) + 6px);
+			overflow: hidden;
+		}
+
+		.buy-ticket-btn {
+			margin-top: 8px;
+			border: none;
+			border-radius: 4px;
+			padding: 12px;
+
+			color: var(--second-color);
+			background: linear-gradient(
+				to right,
+				var(--primary-color),
+				var(--primary-dark-color)
+			);
+		}
+	}
+}

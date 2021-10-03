@@ -1,0 +1,18 @@
+.cinema-system-tabs {
+	margin-bottom: 32px;
+
+	&__wrap {
+		display: flex;
+		border-radius: 6px;
+		border: 1px solid #ccc;
+		overflow: hidden;
+	}
+	&__header {
+		border-right: 1px solid #ccc;
+		display: flex;
+		height: 600px;
+	}
+	&__body {
+		flex: 1 0 0;
+	}
+}
