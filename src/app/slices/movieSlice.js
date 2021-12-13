@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import movieAPI from 'api/movieAPI'
+import random from 'utils/random'
 
 export const getMovieList = createAsyncThunk(
 	'movie/getMovieList',
@@ -13,8 +14,24 @@ export const getMovieList = createAsyncThunk(
 	}
 )
 
+export const getMovieInfo = createAsyncThunk(
+	'movie/getMovieInfo',
+	async (data, thunkAPI) => {
+		try {
+			const { content } = await movieAPI.getMovieInfo(data)
+			content.tuoi = random(12, 18)
+			content.thoiLuong = random(90, 130)
+
+			return content
+		} catch (err) {
+			return thunkAPI.rejectWithValue(err)
+		}
+	}
+)
+
 const initialState = {
 	movieList: [],
+	movieInfo: null,
 }
 
 const movieSlide = createSlice({
@@ -24,6 +41,9 @@ const movieSlide = createSlice({
 	extraReducers: {
 		[getMovieList.fulfilled]: (state, action) => {
 			state.movieList = action.payload
+		},
+		[getMovieInfo.fulfilled]: (state, action) => {
+			state.movieInfo = action.payload
 		},
 	},
 })

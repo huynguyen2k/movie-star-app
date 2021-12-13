@@ -28,7 +28,7 @@ function HeroSlide({ movie, onPlayTrailer, ...props }) {
 							onClick={() => onPlayTrailer(movie)}
 						>
 							<PlayIcon />
-							<span>PLAY TRAILER</span>
+							<span>XEM TRAILER</span>
 						</button>
 					</div>
 				</div>

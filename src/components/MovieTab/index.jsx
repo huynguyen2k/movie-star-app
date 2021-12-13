@@ -61,7 +61,7 @@ function MovieTab({ tabList, movieList }) {
 	}
 
 	return (
-		<div className="movie-tab">
+		<div className="movie-tab" id="showtimes">
 			<div className="container">
 				<div className="movie-tab__header">{renderTabList()}</div>
 				<div className="movie-tab__body">

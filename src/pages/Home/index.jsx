@@ -1,11 +1,14 @@
 import React from 'react'
+import './style.scss'
 // HOOKS
-import { useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 // COMPONENTS
+import MobileApp from 'components/MobileApp'
 import HeroCarousel from 'components/HeroCarousel'
 import MovieTab from 'components/MovieTab'
 import CinemaSystemTabs from 'components/CinemaSystemTabs'
+import ScrollToTop from 'components/ScrollToTop'
 // ACTIONS
 import { getMovieList } from 'app/slices/movieSlice'
 import { getShowtimesOfCinemaSystem } from 'app/slices/cinemaSlice'
@@ -51,8 +54,28 @@ const tabList = [
 		value: 'sapChieu',
 	},
 ]
+const slides = [
+	'./assets/images/mobile/slide1.jpg',
+	'./assets/images/mobile/slide2.jpg',
+	'./assets/images/mobile/slide3.jpg',
+	'./assets/images/mobile/slide4.jpg',
+	'./assets/images/mobile/slide5.jpg',
+	'./assets/images/mobile/slide6.jpg',
+	'./assets/images/mobile/slide7.jpg',
+	'./assets/images/mobile/slide8.jpg',
+	'./assets/images/mobile/slide9.jpg',
+	'./assets/images/mobile/slide10.jpg',
+	'./assets/images/mobile/slide11.jpg',
+	'./assets/images/mobile/slide12.jpg',
+	'./assets/images/mobile/slide13.jpg',
+	'./assets/images/mobile/slide14.jpg',
+	'./assets/images/mobile/slide15.jpg',
+	'./assets/images/mobile/slide16.jpg',
+]
 
 const HomePage = () => {
+	const [scroll, setScroll] = useState(false)
+
 	const dispatch = useDispatch()
 	const movieList = useSelector(state => state.movie.movieList)
 	const cinemaSystemList = useSelector(state => state.cinema.cinemaSystemList)
@@ -62,12 +85,33 @@ const HomePage = () => {
 		dispatch(getShowtimesOfCinemaSystem())
 	}, [dispatch])
 
+	useEffect(() => {
+		window.onscroll = () => {
+			if (window.scrollY > 400) {
+				setScroll(true)
+			} else {
+				setScroll(false)
+			}
+		}
+		return () => {
+			window.onscroll = null
+		}
+	}, [])
+
 	return (
-		<>
+		<div className="home-page">
 			<HeroCarousel movieList={movieBanners} />
-			<MovieTab tabList={tabList} movieList={movieList} />
-			<CinemaSystemTabs cinemaSystemList={cinemaSystemList} />
-		</>
+			<section className="home-page__section">
+				<MovieTab tabList={tabList} movieList={movieList} />
+			</section>
+			<section className="home-page__section">
+				<CinemaSystemTabs cinemaSystemList={cinemaSystemList} />
+			</section>
+			<section className="home-page__section">
+				<MobileApp slides={slides} />
+			</section>
+			{scroll && <ScrollToTop />}
+		</div>
 	)
 }
 

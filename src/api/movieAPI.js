@@ -10,6 +10,13 @@ const movieAPI = {
 			},
 		})
 	},
+	getMovieInfo: maPhim => {
+		return axiosClient.get('/quanlyphim/laythongtinphim', {
+			params: {
+				maPhim,
+			},
+		})
+	},
 }
 
 export default movieAPI

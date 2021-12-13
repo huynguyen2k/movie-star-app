@@ -1,0 +1,13 @@
+.register-page {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	width: 100%;
+	min-height: 100vh;
+	padding: 32px;
+	background: url('../../assets/images/movies/login-bg.jpg') repeat;
+	background-size: contain;
+	background-position: center;
+	background-attachment: fixed;
+}

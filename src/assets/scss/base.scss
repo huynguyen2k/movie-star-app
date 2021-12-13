@@ -6,7 +6,14 @@
 	--primary-dark-color: #ec7532;
 	--second-color: #ffffff;
 	--third-color: #4a4a4a;
-	--danger: red;
+
+	--info: #2980b9;
+	--success: #27ae60;
+	--warning: #f1c40f;
+	--danger: #e74c3c;
+
+	--orange: #fb4226;
+	--dark-orange: #b42a14;
 
 	// FONT-SIZE
 	--xxl-text: 3rem;
@@ -17,6 +24,11 @@
 	--xs-text: 0.875rem;
 }
 
+::selection {
+	color: white;
+	background-color: var(--primary-dark-color);
+}
+
 * {
 	box-sizing: border-box;
 }
@@ -24,4 +36,11 @@
 html {
 	font-family: 'Roboto', sans-serif;
 	font-size: 16px;
+}
+
+img {
+	display: block;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
 }

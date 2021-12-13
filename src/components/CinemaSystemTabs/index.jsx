@@ -54,7 +54,7 @@ function CinemaSystemTabs({ cinemaSystemList }) {
 	const [cinemaSystemTab, setCinemaSystemTab] = useState(0)
 
 	return (
-		<div className="cinema-system-tabs">
+		<div className="cinema-system-tabs" id="cinema">
 			<div className="container">
 				<div className="cinema-system-tabs__wrap">
 					<div className="cinema-system-tabs__header">

@@ -12,7 +12,10 @@ function MovieImage({ movieUrl, movieAlt }) {
 		<img
 			src={movieUrl}
 			alt={movieAlt}
-			onError={e => (e.target.src = 'assets/images/error-image.jpg')}
+			onError={e => {
+				e.onerror = null
+				e.target.src = '/assets/images/error-image.jpg'
+			}}
 		/>
 	)
 }

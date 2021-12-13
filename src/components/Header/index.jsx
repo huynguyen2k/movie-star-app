@@ -1,68 +1,130 @@
 import React from 'react'
-import { Link, NavLink } from 'react-router-dom'
+import { Link as RouteLink } from 'react-router-dom'
+import { Link } from 'react-scroll'
 // ICONS
 import { ReactComponent as Logo } from 'assets/images/icons/logo.svg'
-import AccountIcon from '@material-ui/icons/AccountBox'
+import AccountCircleIcon from '@material-ui/icons/AccountCircle'
 // STYLES
 import './style.scss'
+import { useSelector, useDispatch } from 'react-redux'
+import { Avatar } from '@material-ui/core'
+import { makeStyles } from '@material-ui/core/styles'
+import { logout } from 'app/slices/authSlice'
+
+const useStyles = makeStyles(theme => ({
+	avatar: {
+		width: '36px',
+		height: '36px',
+		backgroundColor: theme.palette.success.main,
+	},
+}))
 
 const Header = () => {
+	const classes = useStyles()
+	const dispatch = useDispatch()
+
+	const user = useSelector(state => state.auth.user)
+	const loggedIn = useSelector(state => state.auth.loggedIn)
+
+	const handleLogoutClick = () => {
+		dispatch(logout())
+	}
+
 	return (
 		<div className="header">
 			<div className="container">
 				<div className="header__wrap">
 					<div className="header__logo">
-						<Link className="header__logo-link" to="/">
+						<RouteLink className="header__logo-link" to="/">
 							<Logo />
-						</Link>
+						</RouteLink>
 					</div>
 					<nav className="header__nav">
-						<NavLink
-							to="/"
-							exact
+						<Link
+							to="showtimes"
 							className="header__nav-link"
-							activeClassName="active"
+							activeClass="active"
+							smooth
+							duration={500}
+							offset={-150}
+							spy={true}
 						>
-							HOME
-						</NavLink>
-						<NavLink
-							to="/about"
+							Lịch Chiếu
+						</Link>
+						<Link
+							to="cinema"
 							className="header__nav-link"
-							activeClassName="active"
+							activeClass="active"
+							smooth
+							duration={500}
+							offset={-150}
+							spy={true}
 						>
-							ABOUT
-						</NavLink>
-						<NavLink
-							to="/news"
+							Cụm Rạp
+						</Link>
+						<Link
+							to="news"
 							className="header__nav-link"
-							activeClassName="active"
+							activeClass="active"
+							smooth
+							duration={500}
+							offset={-150}
+							spy={true}
 						>
-							NEWS
-						</NavLink>
-						<NavLink
-							to="/contact"
+							Tin Tức
+						</Link>
+						<Link
+							to="app"
 							className="header__nav-link"
-							activeClassName="active"
+							activeClass="active"
+							smooth
+							duration={500}
+							offset={-150}
+							spy={true}
 						>
-							CONTACT
-						</NavLink>
+							Ứng dụng
+						</Link>
 					</nav>
-					<div className="header__account">
-						<div className="header__account-wrap">
-							<span className="account-icon">
-								<AccountIcon />
-							</span>
-							<span className="account-text">Account</span>
+
+					{!loggedIn && (
+						<div className="header__account">
+							<div className="header__account-wrap">
+								<span className="account-icon">
+									<AccountCircleIcon />
+								</span>
+								<span className="account-text">Tài khoản</span>
+							</div>
+							<div className="header__account-options">
+								<RouteLink to="/dang-nhap" className="option-link">
+									Đăng nhập
+								</RouteLink>
+								<RouteLink to="/dang-ky" className="option-link">
+									Đăng ký
+								</RouteLink>
+							</div>
 						</div>
-						<div className="header__account-options">
-							<Link to="/login" className="option-link">
-								Login
-							</Link>
-							<Link to="/register" className="option-link">
-								Register
-							</Link>
+					)}
+
+					{loggedIn && (
+						<div className="header__account">
+							<div className="header__account-wrap">
+								<span className="account-icon">
+									<Avatar className={classes.avatar}>
+										{user.hoTen.slice(0, 1).toUpperCase()}
+									</Avatar>
+								</span>
+								<span className="account-text">{user.taiKhoan}</span>
+							</div>
+							<div className="header__account-options">
+								<RouteLink to="/ho-so" className="option-link">
+									Hồ sơ
+								</RouteLink>
+								<span className="option-link" onClick={handleLogoutClick}>
+									Đăng xuất
+								</span>
+							</div>
 						</div>
-					</div>
+					)}
 				</div>
 			</div>
 		</div>

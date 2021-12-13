@@ -7,6 +7,7 @@ import StarIcon from '@material-ui/icons/GradeRounded'
 import PlayIcon from '@material-ui/icons/PlayArrow'
 // COMPONENTS
 import MovieImage from 'components/MovieImage'
+import { Link } from 'react-router-dom'
 
 MovieCard.propTypes = {
 	movie: PropTypes.object,
@@ -56,7 +57,9 @@ function MovieCard({ movie, onPlayTrailer }) {
 			</div>
 			<div className="movie-card__info">
 				<h3 className="name">{movie.tenPhim}</h3>
-				<button className="buy-ticket-btn">Mua vé</button>
+				<Link className="buy-ticket-btn" to={`/chi-tiet-phim/${movie.maPhim}`}>
+					Mua vé
+				</Link>
 			</div>
 		</div>
 	)

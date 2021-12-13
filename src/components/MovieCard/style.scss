@@ -117,7 +117,7 @@
 			margin-top: 8px;
 
 			line-height: 1.2;
-			font-size: calc(var(--small-text) + 6px);
+			font-size: calc(var(--small-text) + 4px);
 			overflow: hidden;
 		}
 
@@ -133,6 +133,10 @@
 				var(--primary-color),
 				var(--primary-dark-color)
 			);
+
+			text-decoration: none;
+			cursor: pointer;
+			user-select: none;
 		}
 	}
 }

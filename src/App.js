@@ -8,10 +8,13 @@ import 'assets/scss/base.scss'
 // CSS SLICK
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
-// UTILS
-import history from 'utils/history'
 // COMPONENTS
-import { Router, Switch, Route } from 'react-router-dom'
+import { Switch, Route } from 'react-router-dom'
+import AutoScrollToTop from 'components/AutoScrollToTop'
+
+// PAGES
+const LoginPage = React.lazy(() => import('pages/Login'))
+const RegisterPage = React.lazy(() => import('pages/Register'))
 // Templates
 const HomeTemplate = React.lazy(() => import('templates/Home'))
 const AdminTemplate = React.lazy(() => import('templates/Admin'))
@@ -19,14 +22,16 @@ const AdminTemplate = React.lazy(() => import('templates/Admin'))
 function App() {
 	return (
 		<div className="app">
-			<Router history={history}>
-				<React.Suspense fallback={<div>loading ...</div>}>
+			<React.Suspense fallback={<div>loading ...</div>}>
+				<AutoScrollToTop>
 					<Switch>
 						<Route path="/admin" component={AdminTemplate} />
+						<Route path="/dang-nhap" component={LoginPage} />
+						<Route path="/dang-ky" component={RegisterPage} />
 						<Route path="/" component={HomeTemplate} />
 					</Switch>
-				</React.Suspense>
-			</Router>
+				</AutoScrollToTop>
+			</React.Suspense>
 		</div>
 	)
 }

@@ -1,0 +1,35 @@
+.movie-detail-table {
+	display: flex;
+	font-size: 1.125rem;
+	font-weight: 400;
+	line-height: 1.6;
+
+	&__left {
+		width: 40%;
+	}
+	&__row {
+		display: flex;
+		margin-bottom: 24px;
+
+		&:last-child {
+			margin-bottom: 0;
+		}
+	}
+	&__col-title {
+		width: 40%;
+	}
+	&__col-content {
+		width: 60%;
+		padding-left: 16px;
+		color: #ccc;
+	}
+	&__right {
+		width: 60%;
+		padding-left: 64px;
+
+		&-content {
+			margin-top: 24px;
+			color: #ccc;
+		}
+	}
+}
