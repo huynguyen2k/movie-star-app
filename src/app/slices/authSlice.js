@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import authAPI from 'api/authAPI'
+import history from 'utils/history'
 
 export const register = createAsyncThunk(
 	'auth/register',
@@ -44,6 +45,8 @@ const authSlice = createSlice({
 
 			localStorage.removeItem('user')
 			localStorage.removeItem('accessToken')
+
+			history.replace('/')
 		},
 	},
 	extraReducers: {

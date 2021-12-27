@@ -1,26 +1,27 @@
-import React, { useMemo, useState } from 'react'
-import { Dialog, IconButton, makeStyles } from '@material-ui/core'
-import './style.scss'
+import { Box, Dialog, IconButton, makeStyles } from '@material-ui/core'
+import Tab from '@material-ui/core/Tab'
 // COMPONENTS
 import Tabs from '@material-ui/core/Tabs'
-import Tab from '@material-ui/core/Tab'
-import TabPanel from 'components/TabPanel'
-import MovieDetailTable from 'components/MovieDetailTable'
-import CommentList from 'components/CommentList'
-import { useSelector, useDispatch } from 'react-redux'
-import { useHistory, useParams } from 'react-router'
+import CloseIcon from '@material-ui/icons/CloseRounded'
+import cinemaAPI from 'api/cinemaAPI'
 import {
 	addNewComment,
-	updateCommentLike,
 	deleteComment,
+	updateCommentLike,
 } from 'app/slices/commentSlice'
-import { Box } from '@material-ui/core'
 import CommentBox from 'components/CommentBox'
+import CommentList from 'components/CommentList'
 import CommentForm from 'components/Forms/CommentForm'
-import CloseIcon from '@material-ui/icons/CloseRounded'
+import MovieDetailTable from 'components/MovieDetailTable'
+import MovieShowtimes from 'components/MovieShowtimes'
+import TabPanel from 'components/TabPanel'
 import moment from 'moment'
-import sleep from 'utils/sleep'
+import React, { useEffect, useMemo, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { useHistory, useParams } from 'react-router'
 import alert from 'utils/alert'
+import sleep from 'utils/sleep'
+import './style.scss'
 
 const useStyles = makeStyles({
 	indicator: {
@@ -81,16 +82,24 @@ function a11yProps(index) {
 function NavTabs() {
 	const classes = useStyles()
 	const history = useHistory()
+	const { movieId } = useParams()
 
 	const [value, setValue] = useState(0)
 	const [open, setOpen] = useState(false)
-	const { movieId } = useParams()
+	const [movieShowtimes, setMovieShowtimes] = useState([])
 
 	const dispatch = useDispatch()
 	const loginUser = useSelector(state => state.auth.user)
 	const loggedIn = useSelector(state => state.auth.loggedIn)
 	const movie = useSelector(state => state.movie.movieInfo)
 	const commentList = useSelector(state => state.comment.commentList)
+
+	useEffect(() => {
+		;(async () => {
+			const data = await cinemaAPI.getShowtimesOfMovie(movieId)
+			setMovieShowtimes(data.content.heThongRapChieu)
+		})()
+	}, [movieId])
 
 	const filteredComments = useMemo(() => {
 		return commentList.filter(comment => comment.movieId === parseInt(movieId))
@@ -185,7 +194,7 @@ function NavTabs() {
 				</div>
 				<div className="nav-tabs__body">
 					<TabPanel value={value} index={0}>
-						Item One
+						<MovieShowtimes movieShowtimes={movieShowtimes} />
 					</TabPanel>
 
 					<TabPanel value={value} index={1}>

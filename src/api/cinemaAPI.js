@@ -25,6 +25,13 @@ const cinemaAPI = {
 			},
 		})
 	},
+	getShowtimesOfMovie: movieId => {
+		return axiosClient.get('QuanLyRap/LayThongTinLichChieuPhim', {
+			params: {
+				MaPhim: movieId,
+			},
+		})
+	},
 }
 
 export default cinemaAPI

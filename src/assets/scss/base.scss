@@ -24,6 +24,23 @@
 	--xs-text: 0.875rem;
 }
 
+::-webkit-scrollbar {
+	width: 14px;
+}
+::-webkit-scrollbar-track {
+	background-color: #f1f1f1;
+}
+::-webkit-scrollbar-thumb {
+	border-radius: 999px;
+	border: 3px solid transparent;
+	background-image: linear-gradient(
+		to bottom,
+		var(--primary-color),
+		var(--primary-dark-color)
+	);
+	background-clip: padding-box;
+}
+
 ::selection {
 	color: white;
 	background-color: var(--primary-dark-color);
