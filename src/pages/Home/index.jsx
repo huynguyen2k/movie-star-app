@@ -12,6 +12,8 @@ import ScrollToTop from 'components/ScrollToTop'
 // ACTIONS
 import { getMovieList } from 'app/slices/movieSlice'
 import { getShowtimesOfCinemaSystem } from 'app/slices/cinemaSlice'
+import useLoading from 'hooks/useLoading'
+import Loading from 'components/Loading'
 
 const movieBanners = [
 	{
@@ -74,6 +76,7 @@ const slides = [
 ]
 
 const HomePage = () => {
+	const [loading] = useLoading()
 	const [scroll, setScroll] = useState(false)
 
 	const dispatch = useDispatch()
@@ -100,16 +103,22 @@ const HomePage = () => {
 
 	return (
 		<div className="home-page">
+			{loading && <Loading />}
+
 			<HeroCarousel movieList={movieBanners} />
+
 			<section className="home-page__section">
 				<MovieTab tabList={tabList} movieList={movieList} />
 			</section>
+
 			<section className="home-page__section">
 				<CinemaSystemTabs cinemaSystemList={cinemaSystemList} />
 			</section>
+
 			<section className="home-page__section">
 				<MobileApp slides={slides} />
 			</section>
+
 			{scroll && <ScrollToTop />}
 		</div>
 	)

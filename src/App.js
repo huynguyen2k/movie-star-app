@@ -11,27 +11,22 @@ import 'slick-carousel/slick/slick-theme.css'
 // COMPONENTS
 import { Switch, Route } from 'react-router-dom'
 import AutoScrollToTop from 'components/AutoScrollToTop'
-
-// PAGES
-const LoginPage = React.lazy(() => import('pages/Login'))
-const RegisterPage = React.lazy(() => import('pages/Register'))
-// Templates
-const HomeTemplate = React.lazy(() => import('templates/Home'))
-const AdminTemplate = React.lazy(() => import('templates/Admin'))
+import AdminTemplate from 'templates/Admin'
+import HomeTemplate from 'templates/Home'
+import LoginPage from 'pages/Login'
+import RegisterPage from 'pages/Register'
 
 function App() {
 	return (
 		<div className="app">
-			<React.Suspense fallback={<div>loading ...</div>}>
-				<AutoScrollToTop>
-					<Switch>
-						<Route path="/admin" component={AdminTemplate} />
-						<Route path="/dang-nhap" component={LoginPage} />
-						<Route path="/dang-ky" component={RegisterPage} />
-						<Route path="/" component={HomeTemplate} />
-					</Switch>
-				</AutoScrollToTop>
-			</React.Suspense>
+			<AutoScrollToTop>
+				<Switch>
+					<Route path="/admin" component={AdminTemplate} />
+					<Route path="/dang-nhap" component={LoginPage} />
+					<Route path="/dang-ky" component={RegisterPage} />
+					<Route path="/" component={HomeTemplate} />
+				</Switch>
+			</AutoScrollToTop>
 		</div>
 	)
 }

@@ -16,9 +16,11 @@ import MovieDetailTable from 'components/MovieDetailTable'
 import MovieShowtimes from 'components/MovieShowtimes'
 import TabPanel from 'components/TabPanel'
 import moment from 'moment'
+import queryString from 'query-string'
 import React, { useEffect, useMemo, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory, useParams } from 'react-router'
+import { useLocation } from 'react-router-dom'
 import alert from 'utils/alert'
 import sleep from 'utils/sleep'
 import './style.scss'
@@ -72,19 +74,31 @@ const useStyles = makeStyles({
 	},
 })
 
-function a11yProps(index) {
-	return {
-		id: `simple-tab-${index}`,
-		'aria-controls': `simple-tabpanel-${index}`,
-	}
-}
+const tabList = [
+	{
+		id: 1,
+		name: 'lịch chiếu',
+		alias: 'lich-chieu',
+	},
+	{
+		id: 2,
+		name: 'thông tin',
+		alias: 'thong-tin',
+	},
+	{
+		id: 3,
+		name: 'đánh giá',
+		alias: 'danh-gia',
+	},
+]
 
 function NavTabs() {
 	const classes = useStyles()
 	const history = useHistory()
+	const location = useLocation()
 	const { movieId } = useParams()
 
-	const [value, setValue] = useState(0)
+	const [value, setValue] = useState(1)
 	const [open, setOpen] = useState(false)
 	const [movieShowtimes, setMovieShowtimes] = useState([])
 
@@ -94,12 +108,30 @@ function NavTabs() {
 	const movie = useSelector(state => state.movie.movieInfo)
 	const commentList = useSelector(state => state.comment.commentList)
 
+	const queryParams = useMemo(() => {
+		const params = queryString.parse(location.search)
+		return {
+			...params,
+			tabName: params.tabName || 'lich-chieu',
+		}
+	}, [location.search])
+
 	useEffect(() => {
 		;(async () => {
 			const data = await cinemaAPI.getShowtimesOfMovie(movieId)
 			setMovieShowtimes(data.content.heThongRapChieu)
 		})()
 	}, [movieId])
+
+	useEffect(() => {
+		const index = tabList.findIndex(
+			tabItem => tabItem.alias === queryParams.tabName
+		)
+
+		if (index >= 0) {
+			setValue(tabList[index].id)
+		}
+	}, [queryParams])
 
 	const filteredComments = useMemo(() => {
 		return commentList.filter(comment => comment.movieId === parseInt(movieId))
@@ -160,48 +192,56 @@ function NavTabs() {
 		}
 	}
 
+	const handleTabItemChange = (e, newValue) => {
+		const index = tabList.findIndex(tabItem => tabItem.id === newValue)
+
+		if (index >= 0) {
+			history.push({
+				pathname: location.pathname,
+				search: queryString.stringify({
+					tabName: tabList[index].alias,
+				}),
+			})
+		}
+	}
+
 	return (
 		<div className="nav-tabs">
 			<div className="container">
 				<div className="nav-tabs__header">
 					<Tabs
-						value={value}
-						onChange={(e, newValue) => setValue(newValue)}
 						centered
+						value={value}
+						onChange={handleTabItemChange}
 						classes={{
 							indicator: classes.indicator,
 						}}
 					>
-						<Tab
-							classes={{ root: classes.tabRoot, selected: classes.selectedTab }}
-							label="Lịch Chiếu"
-							{...a11yProps(0)}
-							disableRipple
-						/>
-						<Tab
-							classes={{ root: classes.tabRoot, selected: classes.selectedTab }}
-							label="Thông Tin"
-							{...a11yProps(1)}
-							disableRipple
-						/>
-						<Tab
-							classes={{ root: classes.tabRoot, selected: classes.selectedTab }}
-							label="Đánh Giá"
-							{...a11yProps(2)}
-							disableRipple
-						/>
+						{tabList.map(tab => (
+							<Tab
+								key={tab.id}
+								disableRipple
+								value={tab.id}
+								label={tab.name}
+								classes={{
+									root: classes.tabRoot,
+									selected: classes.selectedTab,
+								}}
+							/>
+						))}
 					</Tabs>
 				</div>
+
 				<div className="nav-tabs__body">
-					<TabPanel value={value} index={0}>
+					<TabPanel index={1} value={value}>
 						<MovieShowtimes movieShowtimes={movieShowtimes} />
 					</TabPanel>
 
-					<TabPanel value={value} index={1}>
+					<TabPanel index={2} value={value}>
 						<MovieDetailTable movie={movie} />
 					</TabPanel>
 
-					<TabPanel value={value} index={2}>
+					<TabPanel index={3} value={value}>
 						<Box className={classes.commentTab}>
 							<CommentBox loginUser={loginUser} onClick={handleCommentClick} />
 

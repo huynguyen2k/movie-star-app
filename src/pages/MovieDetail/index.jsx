@@ -3,15 +3,18 @@ import { getMovieInfo } from 'app/slices/movieSlice'
 import NavTabs from 'components/NavTabs'
 // COMPONENTS
 import TopDetail from 'components/TopDetail'
+import Loading from 'components/Loading'
 import React, { useEffect, useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 // HOOKS
 import { useParams } from 'react-router'
 import './style.scss'
+import useLoading from 'hooks/useLoading'
 
 function MovieDetailPage() {
 	const { movieId } = useParams()
 
+	const [loading] = useLoading()
 	const dispatch = useDispatch()
 	const movie = useSelector(state => state.movie.movieInfo)
 	const commentList = useSelector(state => state.comment.commentList)
@@ -46,6 +49,8 @@ function MovieDetailPage() {
 
 	return (
 		<div className="movie-detail-page">
+			{loading && <Loading />}
+
 			<TopDetail movie={movieDetail} />
 			<NavTabs />
 		</div>
